@@ -1,6 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import ReactDOM from 'react-dom'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import classes from './styles/root.module.scss'
+
+import App from './home'
+
+import './styles/global.scss'
+
+const root = document.getElementById('root')
+
+root.classList.add(classes.root)
+
+ReactDOM.render(<App />, root)

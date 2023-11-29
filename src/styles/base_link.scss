@@ -1,0 +1,9 @@
+@mixin baseLink {
+  text-decoration: none;
+  color: #5868E4;
+  outline: none;
+
+  &:hover, &:focus {
+    text-decoration: underline;
+  }
+}

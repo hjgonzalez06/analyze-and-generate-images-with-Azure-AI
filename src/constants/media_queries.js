@@ -1,0 +1,5 @@
+export const forBigDesktopUp = 'screen and (min-width: 1800px)'
+export const forDesktopUp = 'screen and (min-width: 1023px)'
+export const forTabletUp = 'screen and (min-width: 700px)'
+export const forTabletDown = 'screen and (max-width: 1024px)'
+export const forPhoneOnly = 'screen and (max-width: 699px)'
