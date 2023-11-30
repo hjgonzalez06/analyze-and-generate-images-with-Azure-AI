@@ -13,9 +13,14 @@ function Home () {
   const handleAnalyzeImage = useCallback(async (formData) => {
     const imageUrl = formData.imageUrl
 
-    const data = await analyzeImage(imageUrl)
+    const analysis = await analyzeImage(imageUrl)
 
-    setImageData(JSON.stringify(data))
+    const data = {
+      url: imageUrl,
+      analysis
+    }
+
+    setImageData(data)
   }, [])
 
   return (
@@ -45,7 +50,8 @@ function Home () {
           <h3>Result</h3>
           {!isEmpty(imageData) && (
             <div>
-              {imageData}
+              <img src={imageData.url} alt='Analyzed' />
+              {JSON.stringify(imageData)}
             </div>
           )}
         </section>
