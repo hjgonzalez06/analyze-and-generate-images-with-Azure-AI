@@ -1,14 +1,38 @@
+import { isEmpty } from 'lodash'
+import { useCallback, useState } from 'react'
+import { useForm } from 'react-hook-form'
+
+import analyzeImage from '../functions/analyzeImage'
+
 import classes from './styles.module.scss'
+import { URL_REGEX } from '../constants/regex'
 
 function Home () {
+  const { register, handleSubmit, formState: { errors } } = useForm()
+  const [imageData, setImageData] = useState(null)
+  const handleAnalyzeImage = useCallback(async (formData) => {
+    const imageUrl = formData.imageUrl
+
+    const data = await analyzeImage(imageUrl)
+
+    setImageData(JSON.stringify(data))
+  }, [])
+
+  console.log(errors.imageUrl)
+
   return (
     <main className={classes.main}>
       <div className={classes.wrapper}>
         <h1 className={classes.title}>Computer Vision</h1>
         <section className={classes.content}>
           <article className={classes.article}>
-            <form className={classes.form}>
-              <input type='url' className={classes.input} />
+            <form onSubmit={handleSubmit(handleAnalyzeImage)} className={classes.form}>
+              <input
+                defaultValue=''
+                className={classes.input}
+                {...register('imageUrl', { required: 'A URL is required', pattern: URL_REGEX, message: 'Please enter a valid URL' })}
+              />
+              {errors.imageUrl && <span>{errors.imageUrl.message}</span>}
               <button type='submit'>Analyze</button>
             </form>
           </article>
@@ -21,9 +45,11 @@ function Home () {
         </section>
         <section className={classes.result}>
           <h3>Result</h3>
-          <div>
-            <img src='https://via.placeholder.com/150' alt='Result' />
-          </div>
+          {!isEmpty(imageData) && (
+            <div>
+              {imageData}
+            </div>
+          )}
         </section>
       </div>
     </main>
