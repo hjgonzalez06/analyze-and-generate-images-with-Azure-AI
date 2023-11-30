@@ -18,8 +18,6 @@ function Home () {
     setImageData(JSON.stringify(data))
   }, [])
 
-  console.log(errors.imageUrl)
-
   return (
     <main className={classes.main}>
       <div className={classes.wrapper}>
